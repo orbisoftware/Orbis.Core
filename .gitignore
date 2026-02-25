@@ -50,3 +50,5 @@ Thumbs.db
 
 # Project-specific
 !.vscode/
+Data/Migrations/
+Migrations/
