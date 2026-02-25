@@ -1,0 +1,52 @@
+# Build Folders
+**/bin/
+**/obj/
+**/out/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider IDE
+.idea/
+
+# ASP.NET Core
+*.db
+
+# Publish outputs
+out/
+src/out/
+src/publish/
+*.publishsettings
+
+# NuGet Packages
+*.nupkg
+src/packages/
+.nuget/
+
+# Node.js / NPM
+node_modules/
+package-lock.json
+yarn.lock
+npm-debug.log
+yarn-error.log
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+
+# Project-specific
+!.vscode/
