@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Orbis.Core.Components;
+using Microsoft.Data.Sqlite;
 using Orbis.Core.Data;
-using Orbis.Core.Models;
 
 namespace Orbis.Core.Services;
 
@@ -45,9 +44,27 @@ public static class DatabaseContext
 
         if (string.IsNullOrEmpty(connectionString))
             throw new ArgumentException("Connection string cannot be null or empty.", nameof(connectionString));
+        else {
+            var pathPart = connectionString.Replace("Data Source=", "").Trim();
+            var folder = Path.GetDirectoryName(pathPart);
+            if (!string.IsNullOrEmpty(folder))
+                Directory.CreateDirectory(folder); // ensures folder exists
+        }
 
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlite(connectionString));
+        {
+            var connection = new SqliteConnection(connectionString);
+            connection.Open();
+
+            // Force classic rollback journal mode to avoid .db-wal/.db-shm
+            using (var cmd = connection.CreateCommand())
+            {
+                cmd.CommandText = "PRAGMA journal_mode=DELETE;";
+                cmd.ExecuteNonQuery();
+            }
+
+            options.UseSqlite(connection);
+        });
 
         services.AddDatabaseDeveloperPageExceptionFilter();
 
