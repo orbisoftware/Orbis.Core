@@ -2,7 +2,7 @@ using System.Reflection;
 using Orbis.Core.Abstractions;
 using Orbis.Core.Models;
 
-namespace Orbis.Core.Services;
+namespace Orbis.Core.Components.Plugins;
 
 /// <summary>
 /// Registry for managing all loaded plugins.

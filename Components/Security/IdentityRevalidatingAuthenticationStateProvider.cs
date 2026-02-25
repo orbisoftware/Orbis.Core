@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Orbis.Core.Data;
+using Orbis.Core.Models;
 using System.Security.Claims;
 
-namespace Orbis.Core.Components.Account;
+namespace Orbis.Core.Components.Security;
 
 // This is a server-side AuthenticationStateProvider that revalidates the security stamp for the connected user
 // every 30 minutes an interactive circuit is connected.
