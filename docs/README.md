@@ -1,2 +1,0 @@
-## docs
-This folder contains the documentation for Orbis. It is built using [Docusaurus](https://docusaurus.io/), a static site generator that makes it easy to create and maintain documentation websites.
