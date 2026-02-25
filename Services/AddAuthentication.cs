@@ -21,13 +21,17 @@ public static class AddAuthentication
         services.AddAuthentication(options =>
         {
             options.DefaultScheme = IdentityConstants.ApplicationScheme;
-            options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
         })
         .AddIdentityCookies();
 
         services.AddIdentityCore<ApplicationUser>(options =>
         {
-            options.SignIn.RequireConfirmedAccount = true;
+            options.SignIn.RequireConfirmedAccount = false;
+            options.Password.RequireDigit = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 6;
         })
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddSignInManager()
