@@ -8,12 +8,33 @@ namespace Orbis.Core.Models;
 /// </summary>
 public class PluginManifest
 {
+    /// <summary>
+    /// Gets the unique identifier for the plugin.
+    /// </summary>
     public required string PluginId { get; init; }
+    /// <summary>
+    /// Gets the display name of the plugin.
+    /// </summary>
     public required string PluginName { get; init; }
+    /// <summary>
+    /// Gets the author of the plugin.
+    /// </summary>
     public required string PluginAuthor { get; init; }
+    /// <summary>
+    /// Gets the version of the plugin.
+    /// </summary>
     public required string PluginVersion { get; init; }
+    /// <summary>
+    /// Gets the optional description of the plugin.
+    /// </summary>
     public string? PluginDescription { get; init; }
+    /// <summary>
+    /// Gets the optional icon for the plugin.
+    /// </summary>
     public string? PluginIcon { get; init; }
+    /// <summary>
+    /// Gets the optional base path for the plugin.
+    /// </summary>
     public string? BasePath { get; init; }
 
     /// <summary>
@@ -24,24 +45,24 @@ public class PluginManifest
     {
         var metadata = assembly
             .GetCustomAttributes<AssemblyMetadataAttribute>()
-            .Where(a => a.Key.StartsWith("Orbis."))
+            .Where(a => a.Key.StartsWith("Plugin."))
             .ToDictionary(a => a.Key, a => a.Value);
 
-        if (!metadata.TryGetValue("Orbis.PluginId", out var pluginId) || string.IsNullOrEmpty(pluginId))
+        if (!metadata.TryGetValue("Plugin.Id", out var pluginId) || string.IsNullOrEmpty(pluginId))
             return null;
 
-        if (!metadata.TryGetValue("Orbis.PluginName", out var pluginName) || string.IsNullOrEmpty(pluginName))
+        if (!metadata.TryGetValue("Plugin.Name", out var pluginName) || string.IsNullOrEmpty(pluginName))
             return null;
 
         return new PluginManifest
         {
             PluginId = pluginId,
             PluginName = pluginName,
-            PluginAuthor = metadata.GetValueOrDefault("Orbis.PluginAuthor") ?? "Unknown",
-            PluginVersion = metadata.GetValueOrDefault("Orbis.PluginVersion") ?? "0.0.0",
-            PluginDescription = metadata.GetValueOrDefault("Orbis.PluginDescription"),
-            PluginIcon = metadata.GetValueOrDefault("Orbis.PluginIcon"),
-            BasePath = metadata.GetValueOrDefault("Orbis.PluginBasePath"),
+            PluginAuthor = metadata.GetValueOrDefault("Plugin.Author") ?? "Unknown",
+            PluginVersion = metadata.GetValueOrDefault("Plugin.Version") ?? "0.0.0",
+            PluginDescription = metadata.GetValueOrDefault("Plugin.Description"),
+            PluginIcon = metadata.GetValueOrDefault("Plugin.Icon"),
+            BasePath = metadata.GetValueOrDefault("Plugin.BasePath"),
         };
     }
 }

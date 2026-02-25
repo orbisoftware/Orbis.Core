@@ -8,15 +8,14 @@ namespace Orbis.Core.Services;
 /// Registry for managing all loaded plugins.
 /// Acts as the single source of truth — frontends only talk to this.
 /// </summary>
-public class PluginRegistry
+/// <remarks>
+/// Initializes a new instance of the <see cref="PluginRegistry"/> class.
+/// </remarks>
+/// <param name="pluginsDirectory">The directory path where plugins are located. Defaults to "plugins".</param>
+public class PluginRegistry(string pluginsDirectory = "plugins")
 {
     private readonly Dictionary<string, (PluginManifest Manifest, Assembly Assembly, List<IPlugin> Instances)> _plugins = [];
-    private readonly PluginLoader _loader;
-
-    public PluginRegistry(string pluginsDirectory = "plugins")
-    {
-        _loader = new PluginLoader(pluginsDirectory);
-    }
+    private readonly PluginLoader _loader = new(pluginsDirectory);
 
     /// <summary>
     /// Discovers and loads all plugins from the plugins directory

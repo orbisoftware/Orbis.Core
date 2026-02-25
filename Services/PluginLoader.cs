@@ -8,14 +8,13 @@ namespace Orbis.Core.Services;
 /// Loads and manages plugins from the filesystem.
 /// Plugin metadata is read from assembly attributes embedded at build time via the .csproj.
 /// </summary>
-public class PluginLoader
+/// <remarks>
+/// Initializes a new instance of the <see cref="PluginLoader"/> class.
+/// </remarks>
+/// <param name="pluginsDirectory">The directory path where plugins are located. Defaults to "plugins".</param>
+public class PluginLoader(string pluginsDirectory = "plugins")
 {
-    private readonly string _pluginsDirectory;
-
-    public PluginLoader(string pluginsDirectory = "plugins")
-    {
-        _pluginsDirectory = pluginsDirectory;
-    }
+    private readonly string _pluginsDirectory = pluginsDirectory;
 
     /// <summary>
     /// Discovers all plugin assemblies and reads their embedded manifests.
